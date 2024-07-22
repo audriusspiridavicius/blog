@@ -11,13 +11,4 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-def get_database():
-    from blogApp.database.user import User
-    Base.metadata.create_all(bind=engine)
-    try:
-        db = SessionLocal()
-        User.create_init_users(db)
-        yield db
-    finally:
-        db.close()
         

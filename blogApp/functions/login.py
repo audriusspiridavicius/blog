@@ -5,7 +5,7 @@ from blogApp.app import auth
 from sqlalchemy.orm import Session
 from fastapi.exceptions import HTTPException
 
-from blogApp.database.database import get_database
+from blogApp.database.get_database import get_database
 
 def login_user(creditials:Annotated[HTTPBasicCredentials, Depends(auth)], db:Annotated[Session, Depends(get_database)]):
     """Login user"""
