@@ -1,18 +1,22 @@
-from .database import Base, get_database
+
+from typing import List
 from sqlalchemy.orm import mapped_column, Mapped, Session
-from fastapi import Depends
-from typing import Annotated
 from sqlalchemy.ext.hybrid import hybrid_property
 from blogApp.functions.hash import Hash
+from .database import Base
+from sqlalchemy.orm import relationship
+
+
 
 class User(Base):
+    from .post import Post
     __tablename__ = "users"
     
     id:Mapped[int] = mapped_column(primary_key=True, index=True)
     username:Mapped[str] = mapped_column(nullable=False, index=True)
     _password:Mapped[str] = mapped_column("password", nullable=False)
     
-   
+    posts:Mapped[List["Post"]] = relationship("Post", back_populates="author")
     
     @classmethod
     def login(cls, username:str, password:str, db:Session):
@@ -44,3 +48,5 @@ class User(Base):
         if db.query(User).count() == 0:
             db.add(usr)
             db.commit()
+    
+ 
