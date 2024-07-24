@@ -14,9 +14,6 @@ test_engine = create_engine(
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
-Base = declarative_base()
-
-
 
 def get_test_database():
     db = TestingSessionLocal()
