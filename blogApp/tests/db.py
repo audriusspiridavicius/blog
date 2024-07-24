@@ -3,7 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from sqlalchemy.orm import declarative_base
+from blogApp.database.database import Base
+from blogApp.database import *
 
 SQLALCHEMY_DATABASE_URL_TEST = "sqlite:///test_db.db"
 
@@ -16,7 +17,9 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_
 
 
 def get_test_database():
+    Base.metadata.create_all(bind=test_engine)
     db = TestingSessionLocal()
+    User.create_init_users(db)
     try:
         yield db
     finally:
