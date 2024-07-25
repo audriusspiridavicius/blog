@@ -13,10 +13,10 @@ class User(Base):
     __tablename__ = "users"
     
     id:Mapped[int] = mapped_column(primary_key=True, index=True)
-    username:Mapped[str] = mapped_column(nullable=False, index=True)
+    username:Mapped[str] = mapped_column(nullable=False, index=True, unique=True)
     _password:Mapped[str] = mapped_column("password", nullable=False)
     
-    posts:Mapped[List["Post"]] = relationship("Post", back_populates="author")
+    posts:Mapped[List["Post"]] = relationship("Post", back_populates="author", cascade="all, delete-orphan")
     
     @classmethod
     def login(cls, username:str, password:str, db:Session):

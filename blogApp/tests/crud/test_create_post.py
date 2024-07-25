@@ -3,7 +3,7 @@ from blogApp.database.user import User, Base
 from blogApp.database.post import Post
 from blogApp.database.crud import create
 from sqlalchemy.orm import Session
-from .db import TestingSessionLocal, test_engine
+from ..db import TestingSessionLocal, test_engine
 from sqlalchemy.exc import IntegrityError
 
 @pytest.fixture(scope="function", autouse=True)
