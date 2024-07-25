@@ -8,5 +8,7 @@ app = FastAPI()
 auth = HTTPBasic()
 
 from .routes import users
+from .routes import posts
+
 app.include_router(users.router)
-app.dependency_overrides[get_database] = get_test_database
+app.include_router(posts.posts_router)
