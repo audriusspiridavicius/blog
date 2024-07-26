@@ -8,6 +8,12 @@ from blogApp.pydantic import post
 from typing import List
 
 
+test_posts:List[post.Post] = [
+    post.Post(title="test title", content="test content"),
+    post.Post(title="test title2", content="test content2")
+]
+
+
 posts_router = APIRouter()
 
 logged_user = Annotated[User, Depends(login_user)]
@@ -19,7 +25,7 @@ def get_all_posts(db:db):
     
     posts = retrieve_from_database(Post, db)
     
-    return posts
+    return test_posts
 
 @posts_router.get("/posts/{post_id}", response_model=List[post.Post])
 def get_single_post(db:db, post_id:int):
